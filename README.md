@@ -10,4 +10,4 @@ Python Tool that compiles frames from Video Enhance AI using audio/sub tracks fr
 # Note:
 You will need to have FFMPEG installed and included within your <b>PATH</b> variable.
 <br><br>
-You May also want to re-encode the final video in Handbrake to reduce file size, not a requirement, but may be needed to playback video on some players, depending on the resulting file size.
+You may also want to re-encode the final video in Handbrake to reduce file size, not a requirement, but may be needed to playback video on some players, depending on the resulting file size.
