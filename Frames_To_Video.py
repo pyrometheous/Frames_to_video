@@ -236,7 +236,7 @@ class MainWindow(wx.Frame):
                 original_video.endswith('.mkv') or original_video.endswith('.mp4') or original_video.endswith('.avi'):
             try:
                 update_status_bar(self, 'Setting Up Variables...')
-                new_video = str(original_video)[:-4] + '_1080p.mkv'
+                new_video = str(original_video)[:-4] + '_final.mkv'
                 temp_video = str(original_video)[:-4] + '_temp.mkv'
                 fps = get_frame_rate(original_video)
                 write_to_log('Original: ' + original_video +
