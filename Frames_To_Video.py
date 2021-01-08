@@ -16,10 +16,10 @@ encoders = {
     "libx264 H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10 (codec h264)": 'libx264',
     "libx264 H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10 RGB (codec h264)": 'libx264rgb',
     "AMD AMF H.264 Encoder (codec h264)": 'h264_amf',
-    "NVIDIA NVENC H.264 encoder (codec h264)": 'h264_nvenc',
-    "H.264 / AVC / MPEG-4 AVC / MPEG-4 (Intel Quick Sync Video acceleration) (codec h264)": 'h264_qsv',
+    "NVIDIA NVENC H.264 encoder": 'h264_nvenc',
+    "H.264 (Intel Quick Sync Video acceleration)": 'h264_qsv',
     "libx265 H.265 / HEVC (codec hevc)": 'libx265',
-    "NVIDIA NVENC hevc encoder (codec hevc)": 'nvenc_hevc',
+    "NVIDIA NVENC H.265 hevc encoder": 'hevc_nvenc',
     "AMD AMF HEVC encoder (codec hevc)": 'hevc_amf',
     "HEVC (Intel Quick Sync Video acceleration) (codec hevc)": 'hevc_qsv'
 }
@@ -29,6 +29,7 @@ def test_video_encoders(encoder):
     if os.path.isfile("./test.mkv"):
         os.remove("./test.mkv")
     if os.path.isfile('./test.avi'):
+
         output_options = {
             'crf': 20,
             'preset': 'fast',
@@ -37,6 +38,13 @@ def test_video_encoders(encoder):
             'c:v': encoder,
             'b:v': '20M'
         }
+        if encoder == encoders['H.264 (Intel Quick Sync Video acceleration)']:
+            write_to_log(output_options)
+            del output_options['c:v']
+            del output_options['crf']
+            del output_options['pix_fmt']
+            output_options['vcodec'] = encoders['H.264 (Intel Quick Sync Video acceleration)']
+            write_to_log(output_options)
         try:
             (
                 ffmpeg
@@ -52,8 +60,8 @@ def test_video_encoders(encoder):
 def create_dummy_video_file():
     width = 480
     height = 320
-    fps = 10
-    seconds = 1
+    fps = 20
+    seconds = 2
     fourcc = cv2.VideoWriter_fourcc(*'MP42')
     video = cv2.VideoWriter('./test.avi', fourcc, float(fps), (width, height))
     for _ in range(fps * seconds):
