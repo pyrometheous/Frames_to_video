@@ -31,7 +31,7 @@ def test_video_encoders(encoder):
     if os.path.isfile('./test.avi'):
         output_options = {
             'crf': 20,
-            'preset': 'ultrafast',
+            'preset': 'fast',
             'movflags': 'faststart',
             'pix_fmt': 'yuv420p',
             'c:v': encoder,
@@ -52,8 +52,8 @@ def test_video_encoders(encoder):
 def create_dummy_video_file():
     width = 480
     height = 320
-    fps = 24
-    seconds = 3
+    fps = 10
+    seconds = 1
     fourcc = cv2.VideoWriter_fourcc(*'MP42')
     video = cv2.VideoWriter('./test.avi', fourcc, float(fps), (width, height))
     for _ in range(fps * seconds):
