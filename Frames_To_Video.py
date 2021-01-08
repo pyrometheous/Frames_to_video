@@ -38,13 +38,13 @@ def test_video_encoders(encoder):
             'c:v': encoder,
             'b:v': '20M'
         }
-        if encoder == encoders['H.264 (Intel Quick Sync Video acceleration)']:
-            write_to_log(output_options)
-            del output_options['c:v']
-            del output_options['crf']
-            del output_options['pix_fmt']
-            output_options['vcodec'] = encoders['H.264 (Intel Quick Sync Video acceleration)']
-            write_to_log(output_options)
+        #if encoder == encoders['H.264 (Intel Quick Sync Video acceleration)']:
+        #    write_to_log(output_options)
+        #    del output_options['c:v']
+        #    del output_options['crf']
+        #    del output_options['pix_fmt']
+        #    output_options['vcodec'] = encoders['H.264 (Intel Quick Sync Video acceleration)']
+        #    write_to_log(output_options)
         try:
             (
                 ffmpeg
@@ -80,15 +80,15 @@ def seconds_to_str(elapsed=None):
 
 
 def warning(e):
-    print('Warning:\n' + e)
+    #print('Warning:\n' + e)
+    write_to_log('Warning:\n' + e)
     wx.MessageBox(e, 'Warning', wx.OK | wx.ICON_WARNING)
-    write_to_log(e)
 
 
 def information(i):
-    print('Note:\n' + i)
+    #print('Note:\n' + i)
+    write_to_log('Note:\n' + i)
     wx.MessageBox(i, 'Note', wx.OK | wx.ICON_INFORMATION)
-    write_to_log(i)
 
 
 def wait(start, text):
@@ -110,7 +110,8 @@ def get_time():
 def update_status_bar(window, text):
     status = str(text)
     window.statusbar.SetStatusText(status, i=1)
-    write_to_log(text)
+    if text:
+        write_to_log(text)
     window.Refresh()
     window.Update()
     wx.SafeYield(win=None, onlyIfNeeded=False)
@@ -289,7 +290,7 @@ class MainWindow(wx.Frame):
         global task
         task = False
         start = time.time()
-        update_status_bar(main_window, 'Verifying Files...')
+        update_status_bar(main_window, 'Verifying Inputs...')
         image_sequence = str(self.text_image_sequence_dir.GetValue())
         original_video = str(self.text_original_video_dir.GetValue())
         choice = self.choice.GetSelection()
@@ -312,7 +313,9 @@ class MainWindow(wx.Frame):
                     temp_video = str(original_video)[:-4] + '_temp.mkv'
                     fps = get_frame_rate(original_video)
                     write_to_log('Original: ' + original_video +
-                                 '\nTemp: ' + temp_video + '\nFPS: ' + str(fps))
+                                 '\nTemp: ' + temp_video + '\n'
+                                 'Encoder: ' + encoder_to_use + '\n'
+                                 'FPS: ' + str(fps))
                     #       Set Up Worker To Compile Frames
                     update_status_bar(self, 'Setting Up Compile Frames Thread...')
                     args = [Worker, image_sequence, temp_video, fps, encoder_to_use]
@@ -338,7 +341,7 @@ class MainWindow(wx.Frame):
                     warning(e)
             else:
                 update_status_bar(main_window, 'Invalid: No Item(s) Selected')
-                warning('You must enter valid paths for both an sequence and a video.')
+                warning('You must enter valid paths for both an image sequence and a video.')
                 stop_busy_statusbar(main_window)
                 update_status_bar(main_window, '')
                 return
