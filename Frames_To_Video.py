@@ -14,7 +14,6 @@ import numpy as np
 
 encoders = {
     "libx264 H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10 (codec h264)": 'libx264',
-    "libx264 H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10 RGB (codec h264)": 'libx264rgb',
     "AMD AMF H.264 Encoder (codec h264)": 'h264_amf',
     "NVIDIA NVENC H.264 encoder": 'h264_nvenc',
     "H.264 (Intel Quick Sync Video acceleration)": 'h264_qsv',
@@ -26,6 +25,7 @@ encoders = {
 
 
 def test_video_encoders(encoder):
+    write_to_log('Testing Encoder: ' + encoder)
     if os.path.isfile("./test.mkv"):
         os.remove("./test.mkv")
     if os.path.isfile('./test.avi'):
@@ -39,6 +39,7 @@ def test_video_encoders(encoder):
             'b:v': '20M'
         }
         #if encoder == encoders['H.264 (Intel Quick Sync Video acceleration)']:
+        #    output_options['pix_fmt'] = 'nv12'
         #    write_to_log(output_options)
         #    del output_options['c:v']
         #    del output_options['crf']
@@ -53,7 +54,9 @@ def test_video_encoders(encoder):
             ).run()
         except ffmpeg.Error as e:
             # print(e)
+            write_to_log(encoder + ': Not Compatible')
             return False
+        write_to_log(encoder + ': Compatible')
         return True
 
 
