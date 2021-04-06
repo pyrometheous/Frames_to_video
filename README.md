@@ -30,9 +30,11 @@ textbox.<br>
 > Completed in: X amount of time.
 8. There will be two new files in the original video file's directory
 - videoFileName_temp.mkv<br>
-- videoFileName_final.mkv<br>
-<br><b>videoFileName_final.mkv</b> should be the image sequence with the audio/subtitle tracks from the original video file.
-The <b>videoFileName_temp.mkv</b> can be deleted once you verify the final file is okay.
+- videoFileName_final.mkv
+<p>
+<b>videoFileName_final.mkv</b> should be the image sequence with the audio/subtitle tracks from the original video file.<br><br>
+<b>videoFileName_temp.mkv</b> can be deleted once you verify the final file is okay.
+</p>
 
 # Note:
 - In some rare circumstances (mostly older AVI files) the script won't create the final file, and will instead prompt
