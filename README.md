@@ -29,13 +29,13 @@ textbox.<br>
 7. Once completed a pop up window will come up saying
 > Completed in: X amount of time.
 8. There will be two new files in the original video file's directory
-- videoFileName_temp.mkv
-- videoFileName_final.mkv
-<b>videoFileName_final.mkv</b> should be the image sequence with the audio/subtitle tracks from the original video file.
+- videoFileName_temp.mkv<br>
+- videoFileName_final.mkv<br>
+<br><b>videoFileName_final.mkv</b> should be the image sequence with the audio/subtitle tracks from the original video file.
 The <b>videoFileName_temp.mkv</b> can be deleted once you verify the final file is okay.
 
 # Note:
 - In some rare circumstances (mostly older AVI files) the script won't create the final file, and will instead prompt
-you to use the MKVToolNix GUI application to merge the video/audio/subtitle tracks into a new file.
+you to use the MKVToolNix GUI application to merge the video/audio/subtitle tracks into a new file.<br>
 - You may want to re-encode the final video in [Handbrake](https://handbrake.fr/downloads.php) to reduce file size, 
 not a requirement, but may be needed o playback video on some players, depending on the resulting file size.
